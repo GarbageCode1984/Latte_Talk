@@ -5,10 +5,14 @@ const cors = require("cors");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+    },
+});
 const port = 5000;
 
-app.use(cors());
 app.use(express.json());
 
 io.on("connection", socket => {

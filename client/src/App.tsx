@@ -26,9 +26,7 @@ const App: React.FC = () => {
             text: message,
             user: user,
         };
-        setMessages([...messages, newMessage]);
         setMessage("");
-        console.log(newMessage);
         socket.emit("message", newMessage);
     };
 
