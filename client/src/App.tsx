@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import "./styles/App.scss";
+import Button from "@mui/material/Button";
 
 interface Message {
     text: string;
     user: string;
 }
-
 const socket = io("http://localhost:5000");
 
 const App: React.FC = () => {
@@ -31,21 +32,31 @@ const App: React.FC = () => {
     };
 
     return (
-        <div>
-            <div id="messages">
-                <ul>
-                    {messages.map((msg, index) => (
-                        <li key={index}>
-                            {msg.user}: {msg.text}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <div className="msgContainer">
+            <div className="msgBox">
+                <div id="messages">
+                    <ul>
+                        {messages.map((msg, index) => (
+                            <li key={index}>
+                                {msg.user}: {msg.text}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <form onSubmit={handleSubmit}>
-                <input autoComplete="off" value={message} onChange={e => setMessage(e.target.value)} />
-                <button type="submit">Send</button>
-            </form>
+                <form className="msgSubmit" onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        autoComplete="off"
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        placeholder="채팅 입력"
+                    />
+                    <Button type="submit" variant="outlined" size="small">
+                        전송
+                    </Button>
+                </form>
+            </div>
         </div>
     );
 };

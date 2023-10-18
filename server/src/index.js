@@ -2,9 +2,11 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const cors = require("cors");
-
+const mongoose = require("mongoose");
 const app = express();
 const server = http.createServer(app);
+const dotenv = require("dotenv");
+dotenv.config();
 const io = socketIo(server, {
     cors: {
         origin: "*",
@@ -14,6 +16,14 @@ const io = socketIo(server, {
 const port = 5000;
 
 app.use(express.json());
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("DB 연결 완료");
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 io.on("connection", socket => {
     console.log("유저 접속");
