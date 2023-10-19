@@ -1,0 +1,29 @@
+section {
+    .RegisterH1 {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 50px;
+    }
+    .RegisterForm {
+        margin-top: 50px;
+        height: 360px;
+        .inputForm {
+            display: flex;
+            flex-direction: column;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5% 0;
+        }
+        .Reg {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .registerButton {
+            margin-top: 100px;
+            text-align: center;
+        }
+    }
+}

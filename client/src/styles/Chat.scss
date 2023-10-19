@@ -1,0 +1,21 @@
+.msgBox {
+    margin: 0 auto;
+    height: inherit;
+    width: inherit;
+    overflow-y: auto;
+}
+.msgSubmit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 5vh;
+    input {
+        width: 100%;
+    }
+    input:focus {
+        outline: none;
+    }
+}

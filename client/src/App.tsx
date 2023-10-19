@@ -1,62 +1,25 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
-import "./styles/App.scss";
-import Button from "@mui/material/Button";
-
-interface Message {
-    text: string;
-    user: string;
-}
-const socket = io("http://localhost:5000");
+import { Route, Routes } from "react-router-dom";
+import Chat from "./pages/Chat/Chat";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import MainHome from "./pages/MainHome/MainHome";
+import ChatPw from "./pages/ChatPw/ChatPw";
+import ChatRegister from "./pages/ChatRegister/ChatRegister";
+import LandingPage from "./pages/LandingPaeg/LandingPage";
 
 const App: React.FC = () => {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [message, setMessage] = useState<string>("");
-
-    useEffect(() => {
-        socket.on("message", (msg: Message) => {
-            setMessages(prevMessages => [...prevMessages, msg]);
-        });
-    }, []);
-
-    const user = "You";
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        const newMessage: Message = {
-            text: message,
-            user: user,
-        };
-        setMessage("");
-        socket.emit("message", newMessage);
-    };
-
     return (
-        <div className="msgContainer">
-            <div className="msgBox">
-                <div id="messages">
-                    <ul>
-                        {messages.map((msg, index) => (
-                            <li key={index}>
-                                {msg.user}: {msg.text}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <div>
+            <Routes>
+                <Route index element={<LandingPage />}></Route>
+                <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/register" element={<RegisterPage />}></Route>
 
-                <form className="msgSubmit" onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        autoComplete="off"
-                        value={message}
-                        onChange={e => setMessage(e.target.value)}
-                        placeholder="채팅 입력"
-                    />
-                    <Button type="submit" variant="outlined" size="small">
-                        전송
-                    </Button>
-                </form>
-            </div>
+                <Route path="/mainHome" element={<MainHome />}></Route>
+                <Route path="/chat" element={<Chat />}></Route>
+                <Route path="/chatPw" element={<ChatPw />}></Route>
+                <Route path="/chatRegister" element={<ChatRegister />}></Route>
+            </Routes>
         </div>
     );
 };
