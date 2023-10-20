@@ -1,11 +1,11 @@
 section {
-    .RegisterH1 {
+    .registerH1 {
         font-size: 24px;
         font-weight: bold;
         text-align: center;
         margin-top: 50px;
     }
-    .RegisterForm {
+    .registerForm {
         margin-top: 50px;
         height: 360px;
         .inputForm {
@@ -18,12 +18,19 @@ section {
         .Reg {
             display: flex;
             justify-content: center;
-            align-items: center;
             text-align: center;
+            font-size: 14px;
+            a {
+                text-decoration: none;
+            }
         }
         .registerButton {
-            margin-top: 100px;
+            padding-top: 35px;
             text-align: center;
+        }
+        .errTeg {
+            font-size: 12px;
+            color: red;
         }
     }
 }
