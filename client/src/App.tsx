@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import MainHome from "./pages/MainHome/MainHome";
 import ChatPw from "./pages/ChatPw/ChatPw";
 import ChatRegister from "./pages/ChatRegister/ChatRegister";
-import LandingPage from "./pages/LandingPaeg/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App: React.FC = () => {
     return (

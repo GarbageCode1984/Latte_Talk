@@ -14,8 +14,9 @@ const io = socketIo(server, {
     },
 });
 const port = 5000;
-
+app.use(cors());
 app.use(express.json());
+
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {

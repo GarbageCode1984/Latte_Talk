@@ -4,6 +4,9 @@ import TextField from "@mui/material/TextField";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { registerUser } from "./../../store/thunkFunctions";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 type Inputs = {
     email: string;
@@ -11,7 +14,7 @@ type Inputs = {
     name: string;
 };
 
-const RegisterPage = () => {
+const RegisterPage: React.FC = () => {
     const {
         register,
         handleSubmit,
@@ -19,8 +22,16 @@ const RegisterPage = () => {
         reset,
     } = useForm<Inputs>({ mode: "onChange" });
 
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
     const onSubmit: SubmitHandler<Inputs> = ({ email, password, name }) => {
-        console.log(email, password, name);
+        const body = {
+            email,
+            password,
+            name,
+        };
+        dispatch(registerUser(body));
+
         reset();
     };
 
@@ -51,7 +62,7 @@ const RegisterPage = () => {
                             <div className="inputForm">
                                 <TextField
                                     id="email"
-                                    label="Email"
+                                    label="email"
                                     variant="outlined"
                                     type="email"
                                     {...register("email", userEmail)}
@@ -65,7 +76,7 @@ const RegisterPage = () => {
                             <div className="inputForm">
                                 <TextField
                                     id="name"
-                                    label="Name"
+                                    label="name"
                                     variant="outlined"
                                     type="text"
                                     {...register("name", userName)}
@@ -79,7 +90,7 @@ const RegisterPage = () => {
                             <div className="inputForm">
                                 <TextField
                                     id="password"
-                                    label="Password"
+                                    label="password"
                                     variant="outlined"
                                     type="password"
                                     {...register("password", userPassword)}
@@ -97,7 +108,7 @@ const RegisterPage = () => {
                             </div>
 
                             <div className="registerButton">
-                                <Button variant="dark" size="lg">
+                                <Button variant="dark" size="lg" type="submit">
                                     회원가입
                                 </Button>
                             </div>
