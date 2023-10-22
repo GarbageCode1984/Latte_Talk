@@ -52,6 +52,8 @@ app.post("/", (req, res) => {
     res.json(req.body);
 });
 
+app.use("/users", require("./routes/users"));
+
 server.listen(port, () => {
     console.log("서버 실행 중...");
 });

@@ -19,7 +19,6 @@ const RegisterPage: React.FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm<Inputs>({ mode: "onChange" });
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -31,8 +30,6 @@ const RegisterPage: React.FC = () => {
             name,
         };
         dispatch(registerUser(body));
-
-        reset();
     };
 
     const userEmail: { required: string } = {

@@ -9,6 +9,7 @@ type UserBody = {
 
 export const registerUser = createAsyncThunk("user/registerUser", async (body: UserBody, thunkAPI) => {
     try {
+        console.log(body);
         const response = await axiosInstance.post(`/users/register`, body);
         return response.data;
     } catch (error) {
