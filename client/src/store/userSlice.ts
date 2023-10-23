@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser } from "./thunkFunctions";
+import { loginUser, registerUser } from "./thunkFunctions";
 import { toast } from "react-toastify";
 
 export interface UserState {
@@ -42,6 +42,22 @@ export const userSlice = createSlice({
                 toast.info("회원가입에 성공했습니다.");
             })
             .addCase(registerUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload ? action.payload.toString() : "Unknown error";
+                toast.error(action.payload ? action.payload.toString() : "Unknown error");
+            })
+
+            .addCase(loginUser.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.userData = action.payload;
+                state.isAuth = true;
+                localStorage.setItem("accessToken", action.payload.accessToken);
+                toast.info("로그인에 성공했습니다.");
+            })
+            .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload ? action.payload.toString() : "Unknown error";
                 toast.error(action.payload ? action.payload.toString() : "Unknown error");
