@@ -33,3 +33,13 @@ export const loginUser = createAsyncThunk("user/loginUser", async (body: UserLog
         return thunkAPI.rejectWithValue(error.response.data || error.message);
     }
 });
+
+export const authUser = createAsyncThunk("user/authUser", async (_, thunkAPI) => {
+    try {
+        const response = await axiosInstance.get(`/users/auth`);
+        return response.data;
+    } catch (error: any) {
+        console.log(error);
+        return thunkAPI.rejectWithValue(error.response.data || error.message);
+    }
+});

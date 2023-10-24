@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Chat from "./pages/Chat/Chat";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -8,6 +8,14 @@ import ChatRegister from "./pages/ChatRegister/ChatRegister";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { UserState } from "./store/userSlice";
+import { useEffect } from "react";
+import { authUser } from "./store/thunkFunctions";
+
+export interface RootState {
+    user: UserState;
+}
 
 function Layout() {
     return (
@@ -21,6 +29,16 @@ function Layout() {
 }
 
 const App: React.FC = () => {
+    const dispatch = useDispatch();
+    const isAuth = useSelector((state: RootState) => state.user?.isAuth);
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        if (isAuth) {
+            dispatch(authUser());
+        }
+    }, [isAuth, pathname, dispatch]);
+
     return (
         <div>
             <Routes>
