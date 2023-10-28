@@ -1,0 +1,50 @@
+.hello {
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    text-transform: uppercase;
+    display: block;
+    font-size: 34px;
+    color: #030305;
+    text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+    font-weight: bold;
+    letter-spacing: -4px;
+    text-align: center;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+}
+.text {
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    text-transform: uppercase;
+    display: block;
+    font-size: 24px;
+    color: #efb730;
+    text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+    font-weight: bold;
+    letter-spacing: -4px;
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    line-height: 1.2;
+}
+.start {
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f2f4ef;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: #030305;
+    transition: 0.5s;
+}
+.start:hover {
+    background-color: #efb730;
+    color: #030305;
+}

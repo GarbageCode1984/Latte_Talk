@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserState } from "./store/userSlice";
 import { useEffect } from "react";
 import { authUser } from "./store/thunkFunctions";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import ProtedctedRoutes from "./components/ProtedctedRoutes";
+import NotAuthRoutes from "./components/NotAuthRoutes";
 
 export interface RootState {
     user: UserState;
@@ -29,7 +32,7 @@ function Layout() {
 }
 
 const App: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const isAuth = useSelector((state: RootState) => state.user?.isAuth);
     const { pathname } = useLocation();
 
@@ -43,14 +46,19 @@ const App: React.FC = () => {
         <div>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<LandingPage />}></Route>
-                    <Route path="/login" element={<LoginPage />}></Route>
-                    <Route path="/register" element={<RegisterPage />}></Route>
+                    <Route index element={<LandingPage />} />
 
-                    <Route path="/mainHome" element={<MainHome />}></Route>
-                    <Route path="/chat" element={<Chat />}></Route>
-                    <Route path="/chatPw" element={<ChatPw />}></Route>
-                    <Route path="/chatRegister" element={<ChatRegister />}></Route>
+                    <Route element={<ProtedctedRoutes isAuth={isAuth} />}>
+                        <Route path="/mainHome" element={<MainHome />} />
+                        <Route path="/chat" element={<Chat />} />
+                        <Route path="/chatPw" element={<ChatPw />} />
+                        <Route path="/chatRegister" element={<ChatRegister />} />
+                    </Route>
+
+                    <Route element={<NotAuthRoutes isAuth={isAuth} />}>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                    </Route>
                 </Route>
             </Routes>
         </div>

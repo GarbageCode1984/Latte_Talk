@@ -41,13 +41,17 @@ server.listen(port, () => {
     console.log("서버 실행 중...");
 });
 
+const messages = [];
+
 io.on("connection", socket => {
     console.log("유저 접속");
 
     socket.on("message", message => {
-        console.log(message);
+        console.log(message.user + ": " + message.text);
+        messages.push(message);
         io.emit("message", message);
     });
+    socket.emit("initialMessages", messages);
 
     socket.on("disconnect", () => {
         console.log("접속 종료");

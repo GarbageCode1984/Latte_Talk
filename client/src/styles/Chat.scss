@@ -19,3 +19,14 @@
         outline: none;
     }
 }
+.msgStyle {
+    border: 1px solid #000;
+    .msgUser {
+        border: 1px solid blue;
+    }
+    .msgText {
+        border: 1px solid red;
+    }
+}
+.clearChat {
+}
