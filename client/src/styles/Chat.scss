@@ -1,32 +1,80 @@
 .msgBox {
     margin: 0 auto;
-    height: inherit;
+    height: 90%;
     width: inherit;
-    overflow-y: auto;
+    #messages {
+        height: 100%;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    #messages::-webkit-scrollbar {
+        display: none;
+    }
+    #messages::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #messages::-webkit-scrollbar-thumb {
+        background-color: #888;
+    }
+    .msgSubmit {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        height: 5vh;
+        input {
+            width: 100%;
+        }
+        input:focus {
+            outline: none;
+        }
+    }
 }
-.msgSubmit {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.msgContainner {
     display: flex;
-    justify-content: space-between;
-    height: 5vh;
-    input {
-        width: 100%;
-    }
-    input:focus {
-        outline: none;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px;
+    padding-right: 20px;
+    .msgStyle {
+        border: solid #efb730;
+        background-color: #efb730;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px;
+        max-width: 70%;
+        .msgUser {
+            font-weight: bold;
+        }
+        .msgText {
+            color: #030305;
+        }
     }
 }
-.msgStyle {
-    border: 1px solid #000;
-    .msgUser {
-        border: 1px solid blue;
+
+.msgContainner_you {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    .msgStyle_you {
+        border: solid #f2f4ef;
+        background-color: #c2e3f4;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px;
+        margin-left: -5px;
+        max-width: 70%;
+        .msgUser_you {
+            font-weight: bold;
+        }
+        .msgText_you {
+            color: #030305;
+        }
     }
-    .msgText {
-        border: 1px solid red;
-    }
-}
-.clearChat {
 }

@@ -26,15 +26,6 @@ mongoose
         console.log(err);
     });
 
-app.get("/", (req, res, next) => {
-    res.send("Hello World!");
-});
-
-app.post("/", (req, res) => {
-    console.log(req.body);
-    res.json(req.body);
-});
-
 app.use("/users", require("./routes/users"));
 
 server.listen(port, () => {
