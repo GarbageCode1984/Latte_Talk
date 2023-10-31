@@ -18,7 +18,7 @@ interface userName {
 }
 
 // const socket = io("http://localhost:5000");
-const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app:5000");
+const socket = io(`${process.env.REACT_APP_IO}`);
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
