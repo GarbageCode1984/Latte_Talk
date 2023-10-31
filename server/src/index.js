@@ -12,7 +12,7 @@ const io = socketIo(server, {
         origin: [
             "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
             "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/login",
-            "http://localhost:5000",
+            "https://localhost:5000",
         ],
         methods: ["GET", "POST"],
     },
@@ -23,7 +23,7 @@ app.use(
         origin: [
             "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
             "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/login",
-            "http://localhost:5000",
+            "https://localhost:5000",
             methods,
             preflightContinue,
             optionsSuccessStatus,
