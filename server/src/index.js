@@ -13,7 +13,7 @@ const io = socketIo(server, {
         methods: ["GET", "POST"],
     },
 });
-const PORT = 5000;
+const Port = 5000;
 app.use(cors());
 app.use(express.json());
 
@@ -28,7 +28,11 @@ mongoose
 
 app.use("/users", require("./routes/users"));
 
-server.listen(PORT, () => {
+app.get("/users", (req, res) => {
+    res.send("Hello");
+});
+
+server.listen(Port, () => {
     console.log("서버 실행 중...");
 });
 
