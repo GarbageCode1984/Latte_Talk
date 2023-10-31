@@ -13,7 +13,7 @@ const io = socketIo(server, {
         methods: ["GET", "POST"],
     },
 });
-const Port = 5000;
+const ports = 5000;
 app.use(cors());
 app.use(express.json());
 
@@ -32,7 +32,7 @@ app.get("/users", (req, res) => {
     res.send("Hello");
 });
 
-server.listen(Port, () => {
+server.listen(ports, () => {
     console.log("서버 실행 중...");
 });
 
