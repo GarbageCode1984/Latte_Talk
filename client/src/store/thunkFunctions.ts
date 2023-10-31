@@ -14,7 +14,7 @@ type UserLoginBody = {
 
 export const registerUser = createAsyncThunk("user/registerUser", async (body: UserRegisterBody, thunkAPI) => {
     try {
-        const response = await axiosInstance.post(`/user/register`, body, {
+        const response = await axiosInstance.post(`${process.env.REACT_APP_USER}/register`, body, {
             withCredentials: true,
         });
         return response.data;
@@ -26,7 +26,7 @@ export const registerUser = createAsyncThunk("user/registerUser", async (body: U
 
 export const loginUser = createAsyncThunk("user/loginUser", async (body: UserLoginBody, thunkAPI) => {
     try {
-        const response = await axiosInstance.post(`/user/login`, body, {
+        const response = await axiosInstance.post(`${process.env.REACT_APP_USER}/login`, body, {
             withCredentials: true,
         });
         return response.data;
@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk("user/loginUser", async (body: UserLog
 
 export const authUser = createAsyncThunk("user/authUser", async (_, thunkAPI) => {
     try {
-        const response = await axiosInstance.get(`/user/auth`, {
+        const response = await axiosInstance.get(`${process.env.REACT_APP_USER}/auth`, {
             withCredentials: true,
         });
         return response.data;
