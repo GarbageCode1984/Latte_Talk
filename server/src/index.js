@@ -15,6 +15,7 @@ const io = socketIo(server, {
             "http://localhost:5000",
         ],
         methods: ["GET", "POST"],
+        credential: "true",
     },
 });
 const PORT = 5000;
@@ -25,6 +26,8 @@ app.use(
             "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/",
             "http://localhost:5000",
         ],
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credential: "true",
     })
 );
 app.use(express.json());
