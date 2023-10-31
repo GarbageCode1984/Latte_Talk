@@ -40,7 +40,7 @@ mongoose
 
 app.use("/users", require("./routes/users"));
 
-app.get("/users", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Hello");
 });
 
