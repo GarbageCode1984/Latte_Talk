@@ -13,7 +13,7 @@ const io = socketIo(server, {
         methods: ["GET", "POST"],
     },
 });
-const PORT = process.env.PORT || 8080;
+const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
