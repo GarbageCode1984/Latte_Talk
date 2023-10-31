@@ -21,7 +21,7 @@ const io = socketIo(server, {
     },
 });
 const PORT = 5000;
-app.use(
+/* app.use(
     cors({
         origin: [
             "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
@@ -33,12 +33,15 @@ app.use(
         optionsSuccessStatus: 204,
         credentials: true,
     })
+); */
+app.use(
+    cors({
+        origin: "*",
+        credential: "true",
+    })
 );
+
 app.use(express.json());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app");
-    next();
-});
 
 mongoose
     .connect(process.env.MONGO_URI)
