@@ -14,7 +14,6 @@ type UserLoginBody = {
 
 export const registerUser = createAsyncThunk("user/registerUser", async (body: UserRegisterBody, thunkAPI) => {
     try {
-        console.log(body);
         const response = await axiosInstance.post(`/users/register`, body);
         return response.data;
     } catch (error: any) {
@@ -25,7 +24,6 @@ export const registerUser = createAsyncThunk("user/registerUser", async (body: U
 
 export const loginUser = createAsyncThunk("user/loginUser", async (body: UserLoginBody, thunkAPI) => {
     try {
-        console.log(body);
         const response = await axiosInstance.post(`/users/login`, body);
         return response.data;
     } catch (error: any) {
@@ -39,7 +37,6 @@ export const authUser = createAsyncThunk("user/authUser", async (_, thunkAPI) =>
         const response = await axiosInstance.get(`/users/auth`);
         return response.data;
     } catch (error: any) {
-        console.log(error);
         return thunkAPI.rejectWithValue(error.response.data || error.message);
     }
 });
