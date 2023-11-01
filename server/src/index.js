@@ -8,21 +8,7 @@ const server = http.createServer(app);
 const dotenv = require("dotenv");
 dotenv.config();
 const PORT = 5000;
-
-const io = socketIo(server, {
-    cors: {
-        origin: [
-            "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
-            "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/",
-            "http://localhost:5173",
-            "https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2",
-        ],
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        credentials: true,
-    },
-});
+const io = socketIo(server);
 
 app.use(
     cors({
@@ -40,7 +26,11 @@ app.use(
 );
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Origin",
+        "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/",
+        "http://localhost:5173"
+    );
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     next();
