@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
         ? "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app"
         : "http://localhost:5000",
 });
-axios.defaults.withCredentials = true;
+axiosInstance.defaults.withCredentials = true;
 
 axiosInstance.interceptors.request.use(
     function (config) {

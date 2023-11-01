@@ -16,7 +16,6 @@ app.use(
             "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
             "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/",
             "http://localhost:5173",
-            "https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2",
         ],
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         preflightContinue: false,
@@ -26,13 +25,11 @@ app.use(
 );
 
 app.use((req, res, next) => {
-    res.header(
-        "Access-Control-Allow-Origin",
+    res.header("Access-Control-Allow-Origin", [
         "https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app/",
         "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app/",
         "http://localhost:5173",
-        "https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2"
-    );
+    ]);
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.header("Access-Control-Allow-Credentials", "true");

@@ -19,7 +19,6 @@ export const registerUser = createAsyncThunk("user/registerUser", async (body: U
         });
         return response.data;
     } catch (error: any) {
-        console.log(error);
         return thunkAPI.rejectWithValue(error.response.data || error.message);
     }
 });
@@ -31,7 +30,6 @@ export const loginUser = createAsyncThunk("user/loginUser", async (body: UserLog
         });
         return response.data;
     } catch (error: any) {
-        console.log(error);
         return thunkAPI.rejectWithValue(error.response.data || error.message);
     }
 });
