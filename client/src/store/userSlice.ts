@@ -41,7 +41,7 @@ export const userSlice = createSlice({
                 state.isLoading = false;
                 toast.info("회원가입에 성공했습니다.");
             })
-            .addCase(registerUser.rejected, (state, action) => {
+            .addCase(registerUser.rejected, (state, action: any) => {
                 state.isLoading = false;
                 state.error = action.payload ? action.payload.toString() : "Unknown error";
                 toast.error(action.payload ? action.payload.toString() : "Unknown error");
@@ -50,14 +50,14 @@ export const userSlice = createSlice({
             .addCase(loginUser.pending, state => {
                 state.isLoading = true;
             })
-            .addCase(loginUser.fulfilled, (state, action) => {
+            .addCase(loginUser.fulfilled, (state, action: any) => {
                 state.isLoading = false;
                 state.userData = action.payload;
                 state.isAuth = true;
                 localStorage.setItem("accessToken", action.payload.accessToken);
                 toast.info("로그인에 성공했습니다.");
             })
-            .addCase(loginUser.rejected, (state, action) => {
+            .addCase(loginUser.rejected, (state, action: any) => {
                 state.isLoading = false;
                 state.error = action.payload ? action.payload.toString() : "Unknown error";
                 toast.error(action.payload ? action.payload.toString() : "Unknown error");
@@ -66,12 +66,12 @@ export const userSlice = createSlice({
             .addCase(authUser.pending, state => {
                 state.isLoading = true;
             })
-            .addCase(authUser.fulfilled, (state, action) => {
+            .addCase(authUser.fulfilled, (state, action: any) => {
                 state.isLoading = false;
                 state.userData = action.payload;
                 state.isAuth = true;
             })
-            .addCase(authUser.rejected, (state, action) => {
+            .addCase(authUser.rejected, (state, action: any) => {
                 state.isLoading = false;
                 state.error = action.payload ? action.payload.toString() : "Unknown error";
                 state.userData = initialState.userData;
