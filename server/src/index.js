@@ -10,7 +10,10 @@ dotenv.config();
 const PORT = 5000;
 const io = socketIo(server, {
     cors: {
-        origin: ["https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app", "http://localhost:5173"],
+        origin: [
+            "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
+            // "http://localhost:5173"
+        ],
         methods: ["GET", "POST"],
         credentials: true,
     },
