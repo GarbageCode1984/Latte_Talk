@@ -1,2 +1,2 @@
 
-![Uploading 캡처.PNG…]()
+![Uploading 캡처.PNG…]
