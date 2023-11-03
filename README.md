@@ -1,4 +1,4 @@
-![image](https://github.com/GarbageCode1984/Latte_Talk/assets/75023330/f598f314-e35c-4796-b91d-3c4b0c564d61)![캡처](https://github.com/GarbageCode1984/Latte_Talk/assets/75023330/32082368-b8b2-4bd8-9373-5a1f7c7106cd)
+![캡처](https://github.com/GarbageCode1984/Latte_Talk/assets/75023330/32082368-b8b2-4bd8-9373-5a1f7c7106cd)
 
 # 웹채팅 프로젝트 라떼톡입니다.
 
@@ -24,6 +24,15 @@ React + Node.js + Express + Mongo DB + socket.IO
 회원이 아니라면 이메일과 패스워드와 닉네임을 입력받아 계정을 생성할 수 있습니다.
 
 가입된 회원정보는 몽고DB에 저장되며 패스워드는 bcrypt와 salt를 이용해 암호화하여 안전하게 저장됩니다.
+
+
+---
+
+
+![캡처-removebg-preview](https://github.com/GarbageCode1984/Latte_Talk/assets/75023330/ce9c33a6-0265-4f89-a352-3a8d2c97faba)
+
+
+가입한 사용자들끼리 채팅방에서 채팅을 나눌 수 있습니다.
 
 
 
