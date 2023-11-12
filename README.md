@@ -35,5 +35,8 @@ React + Node.js + Express + Mongo DB + socket.IO
 가입한 사용자들끼리 채팅방에서 채팅을 나눌 수 있습니다.
 
 
+---
+###Update
+v1.0.1 : 메시지가 24시간이 지나면 삭제됩니다.
 
 
