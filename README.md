@@ -26,7 +26,6 @@ React + Node.js + Express + Mongo DB + socket.IO
 가입된 회원정보는 몽고DB에 저장되며 패스워드는 bcrypt와 salt를 이용해 암호화하여 안전하게 저장됩니다.
 
 
----
 
 
 ![캡처-removebg-preview](https://github.com/GarbageCode1984/Latte_Talk/assets/75023330/ce9c33a6-0265-4f89-a352-3a8d2c97faba)
