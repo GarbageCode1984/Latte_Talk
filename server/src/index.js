@@ -12,7 +12,7 @@ const io = socketIo(server, {
     cors: {
         origin: [
             "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
-            // "http://localhost:5173"
+            // "http://localhost:5173",
         ],
         methods: ["GET", "POST"],
         credentials: true,
@@ -66,15 +66,40 @@ server.listen(PORT, () => {
 
 const messages = [];
 
+const addMessageTimes = message => {
+    const messageTime = {
+        ...message,
+        msgTime: new Date(),
+    };
+    messages.push(messageTime);
+    return messageTime;
+};
+
+const removeOldMessages = () => {
+    const currentTime = new Date();
+    const threshold = 24 * 60 * 60 * 1000;
+
+    messages.forEach((message, index) => {
+        if (currentTime - new Date(message.msgTime) > threshold) {
+            console.log(index);
+            messages.splice(index, 1);
+        }
+    });
+};
+
 io.on("connection", socket => {
     console.log("유저 접속");
 
     socket.on("message", message => {
-        console.log(message.user + ": " + message.text);
-        messages.push(message);
-        io.emit("message", message);
+        const messageTime = addMessageTimes(message);
+        console.log(messageTime.user + ": " + messageTime.text);
+        io.emit("message", messageTime);
     });
     socket.emit("initialMessages", messages);
+
+    setInterval(() => {
+        removeOldMessages();
+    }, 24 * 60 * 60 * 1000);
 
     socket.on("disconnect", () => {
         console.log("접속 종료");
