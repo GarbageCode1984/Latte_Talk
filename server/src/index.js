@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const app = express();
 const server = http.createServer(app);
 const dotenv = require("dotenv");
+const uuid = require("uuid");
 dotenv.config();
 const PORT = 5000;
 const io = socketIo(server, {
@@ -64,11 +65,12 @@ server.listen(PORT, () => {
     console.log("서버 실행 중...");
 });
 
-const messages = [];
+let messages = [];
 
 const addMessageTimes = message => {
     const messageTime = {
         ...message,
+        id: uuid.v4(),
         msgTime: new Date(),
     };
     messages.push(messageTime);
@@ -79,10 +81,15 @@ const removeOldMessages = () => {
     const currentTime = new Date();
     const threshold = 24 * 60 * 60 * 1000;
 
-    messages.forEach((message, index) => {
-        if (currentTime - new Date(message.msgTime) > threshold) {
-            console.log(index);
+    const removedMessages = messages.filter(message => {
+        return currentTime - new Date(message.msgTime) > threshold;
+    });
+
+    removedMessages.forEach(removedMessage => {
+        const index = messages.findIndex(message => message.id === removedMessage.id);
+        if (index !== -1) {
             messages.splice(index, 1);
+            io.emit("removeMessage", removedMessage);
         }
     });
 };

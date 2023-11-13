@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 interface Message {
     text: string;
     user: string;
+    id: string;
 }
 interface userName {
     user: {
@@ -47,6 +48,9 @@ const Chat: React.FC = () => {
             setMessages(prevMessages => [...prevMessages, msg]);
             scrollToBottom();
         });
+        socket.on("removeMessage", removedMessage => {
+            setMessages(prevMessages => prevMessages.filter(msg => msg.id !== removedMessage.id));
+        });
     }, []);
 
     const scrollToBottom = () => {
@@ -62,6 +66,7 @@ const Chat: React.FC = () => {
         const newMessage: Message = {
             text: message,
             user: user,
+            id: "",
         };
         setMessage("");
         socket.emit("message", newMessage);
