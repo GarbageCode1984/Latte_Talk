@@ -51,6 +51,8 @@ const Chat: React.FC = () => {
         socket.on("removeMessage", removedMessage => {
             setMessages(prevMessages => prevMessages.filter(msg => msg.id !== removedMessage.id));
         });
+
+        socket.emit("requestIntialMessages");
     }, []);
 
     const scrollToBottom = () => {

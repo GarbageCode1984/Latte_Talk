@@ -97,6 +97,10 @@ const removeOldMessages = () => {
 io.on("connection", socket => {
     console.log("유저 접속");
 
+    socket.on("requestIntialMessages", () => {
+        socket.emit("initialMessages", messages);
+    });
+
     socket.on("message", message => {
         const messageTime = addMessageTimes(message);
         console.log(messageTime.user + ": " + messageTime.text);
