@@ -2,8 +2,6 @@ import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Chat from "./pages/Chat/Chat";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import MainHome from "./pages/MainHome/MainHome";
-import ChatPw from "./pages/ChatPw/ChatPw";
 import ChatRegister from "./pages/ChatRegister/ChatRegister";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { ToastContainer } from "react-toastify";
@@ -49,9 +47,7 @@ const App: React.FC = () => {
                     <Route index element={<LandingPage />} />
 
                     <Route element={<ProtedctedRoutes isAuth={isAuth} />}>
-                        <Route path="/mainHome" element={<MainHome />} />
                         <Route path="/chat" element={<Chat />} />
-                        <Route path="/chatPw" element={<ChatPw />} />
                         <Route path="/chatRegister" element={<ChatRegister />} />
                     </Route>
 

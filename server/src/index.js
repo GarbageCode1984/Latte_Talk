@@ -12,8 +12,8 @@ const PORT = 5000;
 const io = socketIo(server, {
     cors: {
         origin: [
-            "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
-            // "http://localhost:5173",
+            // "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
+            "http://localhost:5173",
         ],
         methods: ["GET", "POST"],
         credentials: true,
@@ -23,8 +23,8 @@ const io = socketIo(server, {
 app.use(
     cors({
         origin: [
-            "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
-            // "http://localhost:5173",
+            // "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
+            "http://localhost:5173",
         ],
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         preflightContinue: false,
@@ -35,8 +35,8 @@ app.use(
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", [
-        "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
-        // "http://localhost:5173",
+        // "https://web-latte-talk2-jvpb2mloe372no.sel5.cloudtype.app",
+        "http://localhost:5173",
     ]);
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
