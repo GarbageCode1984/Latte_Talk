@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authUser, loginUser, registerUser } from "./thunkFunctions";
+import { DeleteAccountUser, authUser, loginUser, registerUser } from "./thunkFunctions";
 import { toast } from "react-toastify";
 
 export interface UserState {
@@ -77,6 +77,22 @@ export const userSlice = createSlice({
                 state.userData = initialState.userData;
                 state.isAuth = false;
                 localStorage.removeItem("accessToken");
+            })
+
+            .addCase(DeleteAccountUser.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(DeleteAccountUser.fulfilled, (state, action: any) => {
+                state.isLoading = false;
+                state.userData = action.payload;
+                state.isAuth = false;
+                localStorage.removeItem("accessToken");
+                toast.info("계정을 삭제했습니다.");
+            })
+            .addCase(DeleteAccountUser.rejected, (state, action: any) => {
+                state.isLoading = false;
+                state.error = action.payload ? action.payload.toString() : "Unknown error";
+                toast.error(action.payload ? action.payload.toString() : "Unknown error");
             });
     },
 });

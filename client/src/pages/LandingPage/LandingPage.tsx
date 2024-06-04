@@ -11,7 +11,7 @@ const LandingPage = () => {
                     웹채팅 프로젝트
                     <br /> 라떼톡입니다.
                 </p>
-                <Link className="start" to="/chat">
+                <Link className="start" to="/main">
                     시작하기
                 </Link>
             </div>

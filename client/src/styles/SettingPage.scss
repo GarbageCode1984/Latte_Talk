@@ -1,0 +1,20 @@
+.settingLayout {
+    width: 70%;
+    height: 80%;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    .setButton {
+        margin-bottom: 10%;
+        padding: 5% 0;
+        border: 1px solid #adabab;
+        color: #000000;
+        transition: all 0.5s;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .setButton:hover {
+        background-color: #efb730;
+    }
+}

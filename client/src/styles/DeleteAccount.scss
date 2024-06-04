@@ -1,0 +1,52 @@
+.DeleteAccountLayout {
+    width: 70%;
+    height: 80%;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .trashOne {
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        background-color: rgba(255, 0, 0, 0.614);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .trashIcon {
+            width: 64px;
+            height: 64px;
+        }
+    }
+    .DeleteAccountH1 {
+        margin-top: 5%;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .DeleteAccountText {
+        margin-top: 5%;
+        color: #898989;
+    }
+    .del,
+    .delUndo {
+        width: 30%;
+        height: 10%;
+        border-radius: 10px;
+        position: absolute;
+        border: none;
+        transition: all 0.8s;
+    }
+    .del:hover {
+        background-color: rgb(215, 25, 25);
+    }
+    .del {
+        color: #fff;
+        background-color: red;
+        bottom: 25%;
+    }
+    .delUndo {
+        color: #666666;
+        bottom: 15%;
+    }
+}

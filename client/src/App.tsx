@@ -2,7 +2,6 @@ import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Chat from "./pages/Chat/Chat";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import ChatRegister from "./pages/ChatRegister/ChatRegister";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +12,11 @@ import { authUser } from "./store/thunkFunctions";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import ProtedctedRoutes from "./components/ProtedctedRoutes";
 import NotAuthRoutes from "./components/NotAuthRoutes";
+import Main from "./pages/Main/Main";
+import RoomCreate from "./pages/RoomCreate/RoomCreate";
+import PasswordCheck from "./pages/PasswordCheck/PasswordCheck";
+import SettingPage from "./pages/SettingPage/SettingPage";
+import DeleteAccount from "./pages/DeleteAccount/DeleteAccount";
 
 export interface RootState {
     user: UserState;
@@ -29,7 +33,7 @@ function Layout() {
     );
 }
 
-const App: React.FC = () => {
+const App = () => {
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const isAuth = useSelector((state: RootState) => state.user?.isAuth);
     const { pathname } = useLocation();
@@ -47,8 +51,12 @@ const App: React.FC = () => {
                     <Route index element={<LandingPage />} />
 
                     <Route element={<ProtedctedRoutes isAuth={isAuth} />}>
-                        <Route path="/chat" element={<Chat />} />
-                        <Route path="/chatRegister" element={<ChatRegister />} />
+                        <Route path="/main" element={<Main />} />
+                        <Route path="/rooms/:roomId" element={<Chat />} />
+                        <Route path="/create" element={<RoomCreate />} />
+                        <Route path="/passwordCheck/:roomId" element={<PasswordCheck />} />
+                        <Route path="/setting" element={<SettingPage />} />
+                        <Route path="/delAccount" element={<DeleteAccount />} />
                     </Route>
 
                     <Route element={<NotAuthRoutes isAuth={isAuth} />}>

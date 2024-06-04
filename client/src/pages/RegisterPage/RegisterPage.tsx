@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/RegisterPage.scss";
 import TextField from "@mui/material/TextField";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,14 +22,18 @@ const RegisterPage: React.FC = () => {
     } = useForm<Inputs>({ mode: "onChange" });
 
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const navigate = useNavigate();
 
-    const onSubmit: SubmitHandler<Inputs> = ({ email, password, name }) => {
+    const onSubmit: SubmitHandler<Inputs> = async ({ email, password, name }) => {
         const body = {
             email,
             password,
             name,
         };
-        dispatch(registerUser(body));
+        const payload = await dispatch(registerUser(body));
+        if (payload) {
+            navigate(`/login`);
+        }
     };
 
     const userEmail: { required: string } = {

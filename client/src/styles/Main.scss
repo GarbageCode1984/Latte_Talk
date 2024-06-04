@@ -1,0 +1,65 @@
+.roomCreate {
+    color: #fff;
+    font-weight: bold;
+    background-color: #000;
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 10%;
+    border: none;
+    transition: all 0.2s;
+}
+.roomCreate:hover {
+    border: none;
+    color: #000000;
+    background-color: #efb730;
+}
+.mainPage {
+    height: 80%;
+    .mainH1 {
+        text-align: center;
+        margin-top: 4%;
+        font-size: 26px;
+        font-weight: bold;
+    }
+    #roomList {
+        margin-top: 4%;
+        height: 75%;
+        overflow: scroll;
+        .room {
+            height: 20%;
+            border: 1px solid #4398ed;
+            margin: 10px 5px;
+            transition: all 0.2s;
+            position: relative;
+            .roomText {
+                font-size: 16px;
+                font-family: "NanumSquareNeo-Variable";
+                padding-top: 5px;
+                font-weight: bold;
+            }
+            .closed {
+                right: 1%;
+                position: absolute;
+                width: 18px;
+                height: 18px;
+                float: right;
+            }
+        }
+        .room:hover {
+            background: #efb630c9;
+        }
+        .noRoom {
+            font-size: 16px;
+        }
+    }
+    #roomList::-webkit-scrollbar {
+        width: 10px;
+    }
+    #roomList::-webkit-scrollbar-thumb {
+        background: #efb730;
+        border-radius: 10px;
+    }
+}

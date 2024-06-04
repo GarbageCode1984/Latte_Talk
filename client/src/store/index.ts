@@ -3,9 +3,11 @@ import userReducer from "./userSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
+import roomReducer from "./roomSlice";
 
 const rootReducer = combineReducers({
     user: userReducer,
+    room: roomReducer,
 });
 
 const persistConfig = {

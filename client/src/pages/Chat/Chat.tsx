@@ -4,42 +4,110 @@ import "../../styles/Chat.scss";
 import "../../styles/base.scss";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import NavigateButton from "../../components/NavigateButton";
+import DeleteButton from "../../components/DeleteButton";
+import { createSelector } from "@reduxjs/toolkit";
 
 interface Message {
-    text: string;
     user: string;
-    id: string;
+    userId: string;
+    message: string;
+    sendDate: Date;
+    roomId: string | undefined;
 }
-interface userName {
+interface State {
     user: {
         userData: {
             name: string;
+            _id: string;
         };
     };
+    room: {
+        rooms: Room[];
+    };
+}
+interface Room {
+    _id: string;
+    roomName: string;
+    isPasswordProtected: boolean;
+    creator: string;
 }
 
-// const socket = io("http://localhost:5000");
-const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
-    withCredentials: true,
-    transports: ["websocket"],
-});
-
-const Chat: React.FC = () => {
+const Chat = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [message, setMessage] = useState<string>("");
-    const user = useSelector((state: userName) => state.user.userData.name);
+    const [deleteOnOffButton, setDeleteOnOffButton] = useState(false);
+    const { roomId } = useParams();
+
+    const selectUserAndRoom = createSelector(
+        (state: State) => state.user.userData.name,
+        (state: State) => state.user.userData._id,
+        (state: State) => {
+            let foundRoom = null;
+            if (state.room && state.room.rooms) {
+                if (Array.isArray(state.room.rooms)) {
+                    const rooms = Object.values(state.room.rooms);
+                    foundRoom = rooms.find(r => r._id === roomId);
+                } else {
+                    foundRoom = state.room.rooms;
+                }
+            }
+            return foundRoom;
+        },
+        (userName, userId, myRoom) => ({
+            user: userName,
+            userId,
+            myRoom,
+        })
+    );
+    const { user, userId, myRoom } = useSelector(selectUserAndRoom);
+
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
+    /* const socket = io("http://localhost:5000", {
+        query: { roomId },
+    }); */
+    const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
+        withCredentials: true,
+        transports: ["websocket"],
+        query: { roomId },
+    });
+
+    function formatTimestamp(timestamp: Date) {
+        const date = new Date(timestamp);
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+    }
 
     const messageList = messages.map((msg, index) => (
         <div key={index} className={`${msg.user === user ? "msgContainner" : "msgContainner_you"}`}>
             <li className={`${msg.user === user ? "msgStyle" : "msgStyle_you"}`}>
-                <span className={`${msg.user === user ? "msgUser" : "msgUser_you"}`}>{msg.user} : </span>
-                <span className={`${msg.user === user ? "msgText" : "msgText_you"}`}>{msg.text}</span>
+                {msg.user === user ? (
+                    <>
+                        <span className="msgText">{msg.message}</span>
+                        <span className="msgTime">{formatTimestamp(msg.sendDate)}</span>
+                    </>
+                ) : (
+                    <>
+                        <span className="msgUser_you">{msg.user}</span>
+                        <span className="msgText_you"> : {msg.message}</span>
+                        <span className="msgTime_you">{formatTimestamp(msg.sendDate)}</span>
+                    </>
+                )}
             </li>
         </div>
     ));
 
     useEffect(() => {
+        if (myRoom && myRoom.creator === userId) {
+            setDeleteOnOffButton(true);
+        } else {
+            setDeleteOnOffButton(false);
+        }
+
+        socket.emit("joinRoom", roomId, user);
+
         socket.on("initialMessages", initialMessages => {
             setMessages(initialMessages);
             scrollToBottom();
@@ -48,11 +116,12 @@ const Chat: React.FC = () => {
             setMessages(prevMessages => [...prevMessages, msg]);
             scrollToBottom();
         });
-        socket.on("removeMessage", removedMessage => {
-            setMessages(prevMessages => prevMessages.filter(msg => msg.id !== removedMessage.id));
-        });
 
-        socket.emit("requestIntialMessages");
+        socket.emit("requestInitialMessages", roomId);
+
+        return () => {
+            socket.emit("leaveRoom", roomId, user);
+        };
     }, []);
 
     const scrollToBottom = () => {
@@ -66,18 +135,25 @@ const Chat: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const newMessage: Message = {
-            text: message,
             user: user,
-            id: "",
+            userId: userId,
+            message: message.trim(),
+            sendDate: new Date(),
+            roomId: roomId,
         };
-        setMessage("");
+        if (!message) {
+            return;
+        }
         socket.emit("message", newMessage);
+        setMessage("");
         scrollToBottom();
     };
 
     return (
         <div className="layout">
             <div className="smartPhone">
+                <NavigateButton />
+                {deleteOnOffButton && <DeleteButton />}
                 <div className="msgBox">
                     <div id="messages">
                         <ul className="messageList">{messageList}</ul>

@@ -6,9 +6,11 @@ const mongoose = require("mongoose");
 const app = express();
 const server = http.createServer(app);
 const dotenv = require("dotenv");
-const uuid = require("uuid");
 dotenv.config();
 const PORT = 5000;
+const Message = require("./models/Message");
+const schedule = require("node-schedule");
+
 const io = socketIo(server, {
     cors: {
         origin: [
@@ -56,64 +58,66 @@ mongoose
     });
 
 app.use("/users", require("./routes/users"));
-
-app.get("/", (req, res) => {
-    res.send("Hello");
-});
+app.use("/rooms", require("./routes/rooms"));
 
 server.listen(PORT, () => {
     console.log("서버 실행 중...");
 });
 
-let messages = [];
-
-const addMessageTimes = message => {
-    const messageTime = {
-        ...message,
-        id: uuid.v4(),
-        msgTime: new Date(),
-    };
-    messages.push(messageTime);
-    return messageTime;
-};
-
-const removeOldMessages = () => {
+const deleteMessageOlderThan24Hours = async () => {
     const currentTime = new Date();
-    const threshold = 24 * 60 * 60 * 1000;
-
-    const removedMessages = messages.filter(message => {
-        return currentTime - new Date(message.msgTime) > threshold;
-    });
-
-    removedMessages.forEach(removedMessage => {
-        const index = messages.findIndex(message => message.id === removedMessage.id);
-        if (index !== -1) {
-            messages.splice(index, 1);
-            io.emit("removeMessage", removedMessage);
-        }
-    });
+    const oldTime = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000);
+    try {
+        const result = await Message.deleteMany({ sendDate: { $lt: oldTime } });
+        console.log("삭제된 메세지 수:", result.deletedCount);
+    } catch (error) {
+        console.error("메시지 삭제 중 오류 발생:", error);
+    }
 };
+
+schedule.scheduleJob("0 0 * * *", deleteMessageOlderThan24Hours);
+
+const roomUsers = {};
 
 io.on("connection", socket => {
-    console.log("유저 접속");
-
-    socket.on("requestIntialMessages", () => {
-        socket.emit("initialMessages", messages);
+    socket.on("joinRoom", async (roomId, userId) => {
+        if (!roomUsers[roomId]) {
+            roomUsers[roomId] = [];
+        }
+        const isUserAlreadyInRoom = roomUsers[roomId].includes(userId);
+        if (!isUserAlreadyInRoom) {
+            roomUsers[roomId].push(userId);
+            socket.join(roomId);
+        }
+        console.log(roomUsers);
     });
 
-    socket.on("message", message => {
-        const messageTime = addMessageTimes(message);
-        console.log(messageTime.user + ": " + messageTime.text);
-        io.emit("message", messageTime);
+    socket.on("requestInitialMessages", async roomId => {
+        try {
+            const initialMessages = await Message.find({ roomId }).sort({ sendDate: 1 }).limit(50);
+            socket.emit("initialMessages", initialMessages);
+        } catch (error) {
+            console.error("초기 메시지 로딩 실패 :", error);
+        }
     });
-    socket.emit("initialMessages", messages);
 
-    setInterval(() => {
-        removeOldMessages();
-    }, 24 * 60 * 60 * 1000);
+    socket.on("message", async message => {
+        try {
+            const savedMessage = await Message.create({
+                ...message,
+                sendDate: new Date(),
+            });
+            io.emit("message", savedMessage);
+        } catch (e) {
+            console.error("메시지 저장 실패", e);
+        }
+    });
 
-    socket.on("disconnect", () => {
-        console.log("접속 종료");
+    socket.on("leaveRoom", (roomId, userId) => {
+        if (roomUsers[roomId]) {
+            roomUsers[roomId] = roomUsers[roomId].filter(id => id !== userId);
+        }
+        socket.leave(roomId);
     });
 
     socket.on("error", error => {
