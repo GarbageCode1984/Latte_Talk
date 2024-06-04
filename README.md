@@ -8,7 +8,12 @@
 ### 사용된 기술  
 React + Node.js + Express + Mongo DB + socket.IO
 
+test계정
+Id : test@test.com
+password : test1234
 
+Id : test2@test.com
+password : test1234
 ---
 
 
@@ -39,9 +44,11 @@ React + Node.js + Express + Mongo DB + socket.IO
 
 
 v1.0.1 : 메시지가 24시간이 지나면 삭제됩니다.
+
+
 v2.0.1 : 전체적인 디자인 수정
-         채팅방 생성 기능 추가
-         채팅방 패스워드 기능 추가
-         계정 삭제 기능 추가
-         메시지 시간 표시
+                  채팅방 생성 기능 추가
+                  채팅방 패스워드 기능 추가
+                  계정 삭제 기능 추가
+                  메시지 시간 표시
 
