@@ -54,6 +54,7 @@ const LoginPage = () => {
                                     label="email"
                                     variant="outlined"
                                     type="email"
+                                    autoComplete="email"
                                     {...register("email", userEmail)}
                                 />
                                 {errors?.email && (
@@ -69,6 +70,7 @@ const LoginPage = () => {
                                     label="password"
                                     variant="outlined"
                                     type="password"
+                                    autoComplete="current-password"
                                     {...register("password", userPassword)}
                                 />
                                 {errors?.password && (

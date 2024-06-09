@@ -53,8 +53,8 @@ const App = () => {
                     <Route element={<ProtedctedRoutes isAuth={isAuth} />}>
                         <Route path="/main" element={<Main />} />
                         <Route path="/rooms/:roomId" element={<Chat />} />
-                        <Route path="/create" element={<RoomCreate />} />
                         <Route path="/passwordCheck/:roomId" element={<PasswordCheck />} />
+                        <Route path="/create" element={<RoomCreate />} />
                         <Route path="/setting" element={<SettingPage />} />
                         <Route path="/delAccount" element={<DeleteAccount />} />
                     </Route>

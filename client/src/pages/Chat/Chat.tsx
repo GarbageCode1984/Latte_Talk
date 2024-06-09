@@ -64,14 +64,14 @@ const Chat = () => {
     const { user, userId, myRoom } = useSelector(selectUserAndRoom);
 
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
-    /* const socket = io("http://localhost:5000", {
+    const socket = io("http://localhost:5000", {
         query: { roomId },
-    }); */
-    const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
+    });
+    /* const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
         withCredentials: true,
         transports: ["websocket"],
         query: { roomId },
-    });
+    }); */
 
     function formatTimestamp(timestamp: Date) {
         const date = new Date(timestamp);

@@ -13,7 +13,6 @@ router.post("/create", async (req, res, next) => {
             creator: userId,
         });
         const savedChatRoom = await chatRoom.save();
-        console.log(savedChatRoom);
         return res.status(200).json(savedChatRoom);
     } catch (err) {
         next(err);

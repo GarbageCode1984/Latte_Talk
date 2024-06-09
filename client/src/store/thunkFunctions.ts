@@ -111,3 +111,12 @@ export const DeleteAccountUser = createAsyncThunk("user/DeleteAccountUser", asyn
         return thunkAPI.rejectWithValue(error.response.data || error.message);
     }
 });
+
+export const logOut = createAsyncThunk("user/logOut", async () => {
+    try {
+        const response = await axiosInstance.post(`/users/logOut`);
+        return response.data;
+    } catch (error: any) {
+        return error.response.data || error.message;
+    }
+});

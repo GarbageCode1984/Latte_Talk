@@ -72,4 +72,13 @@ router.delete("/DeleteAccount", async (req, res, next) => {
         next(err);
     }
 });
+
+router.post("/logOut", async (req, res, next) => {
+    try {
+        return res.status(200).send("로그아웃 성공.");
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;
