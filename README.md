@@ -4,10 +4,6 @@
 
 회원가입 기능과 로그인 기능을 지원하고 실시간 양방향 메시지를 보낼 수 있는 채팅을 지원합니다.
 
-### 사용된 기술
-
-# <<<<<<< HEAD
-
 ### 테스트 계정
 
 Id : test@test.com
@@ -18,8 +14,7 @@ password : test1234
 
 ### 사용된 기술
 
-> > > > > > > 52ab3b55251b27d6ccaa89e1e2a27374b6efc424
-> > > > > > > React + Node.js + Express + Mongo DB + socket.IO
+React + Node.js + Express + Mongo DB + socket.IO
 
 ---
 
