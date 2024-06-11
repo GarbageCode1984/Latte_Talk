@@ -4,7 +4,7 @@ import "../../styles/Chat.scss";
 import "../../styles/base.scss";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import NavigateButton from "../../components/NavigateButton";
 import DeleteButton from "../../components/DeleteButton";
 import { createSelector } from "@reduxjs/toolkit";
@@ -39,7 +39,10 @@ const Chat = () => {
     const [message, setMessage] = useState<string>("");
     const [deleteOnOffButton, setDeleteOnOffButton] = useState(false);
     const { roomId } = useParams();
-
+    const rooms = useSelector((state: State) => state.room.rooms);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const roomKey = location.state?.roomKey;
     const selectUserAndRoom = createSelector(
         (state: State) => state.user.userData.name,
         (state: State) => state.user.userData._id,
@@ -62,16 +65,15 @@ const Chat = () => {
         })
     );
     const { user, userId, myRoom } = useSelector(selectUserAndRoom);
-
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
-    /* const socket = io("http://localhost:5000", {
+    const socket = io("http://localhost:5000", {
         query: { roomId },
-    }); */
-    const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
+    });
+    /*  const socket = io("https://port-0-latte-talk-jvpb2mloe372no.sel5.cloudtype.app", {
         withCredentials: true,
         transports: ["websocket"],
         query: { roomId },
-    });
+    }); */
 
     function formatTimestamp(timestamp: Date) {
         const date = new Date(timestamp);
@@ -106,6 +108,14 @@ const Chat = () => {
             setDeleteOnOffButton(false);
         }
 
+        if (roomKey) {
+            navigate(`/rooms/${roomId}`);
+        } else if (myRoom && myRoom.isPasswordProtected) {
+            navigate(`/PasswordCheck/${roomId}`);
+        } else {
+            navigate(`/rooms/${roomId}`);
+        }
+
         socket.emit("joinRoom", roomId, user);
 
         socket.on("initialMessages", initialMessages => {
@@ -122,7 +132,7 @@ const Chat = () => {
         return () => {
             socket.emit("leaveRoom", roomId, user);
         };
-    }, []);
+    }, [roomId, rooms, navigate]);
 
     const scrollToBottom = () => {
         setTimeout(() => {

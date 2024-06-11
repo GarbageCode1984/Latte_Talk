@@ -30,13 +30,10 @@ const Main = () => {
         getRooms();
     }, [dispatch]);
 
-    const handleRoomClick = (roomId: string, isPasswordProtected: boolean) => {
-        if (isPasswordProtected) {
-            navigate(`/PasswordCheck/${roomId}`);
-        } else {
-            navigate(`/rooms/${roomId}`);
-        }
+    const handleRoomClick = async (roomId: string) => {
+        navigate(`/rooms/${roomId}`);
     };
+
     return (
         <div className="layout">
             <div className="smartPhone">
@@ -46,11 +43,7 @@ const Main = () => {
                     <ul id="roomList">
                         {rooms && rooms.length > 0 ? (
                             rooms.map(room => (
-                                <li
-                                    className="room"
-                                    key={room._id}
-                                    onClick={() => handleRoomClick(room._id, room.isPasswordProtected)}
-                                >
+                                <li className="room" key={room._id} onClick={() => handleRoomClick(room._id)}>
                                     <p className="roomText">{room.roomName}</p>
                                     {room.isPasswordProtected ? <img className="closed" src="/closed.png" /> : ""}
                                 </li>

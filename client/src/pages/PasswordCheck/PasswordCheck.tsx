@@ -29,7 +29,7 @@ const PasswordCheck = () => {
         };
         const response = await dispatch(checkPasswordRoom(body)).unwrap();
         if (response.success) {
-            navigate(`/rooms/${roomId}`);
+            navigate(`/rooms/${roomId}`, { state: { roomKey: "key" } });
         }
     };
     const passwordCheck: { required: string } = {
